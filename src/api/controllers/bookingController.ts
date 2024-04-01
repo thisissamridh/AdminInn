@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createBooking as createBookingService, modifyBooking as modifyBookingService, cancelBooking as cancelBookingService } from '../../services/bookingService';
+import { createBooking as createBookingService, modifyBooking as modifyBookingService, cancelBooking as cancelBookingService, getBookings as getBookingsService } from '../services/bookingService';
 
 // Controller for creating a booking
 export const createBooking = async (req: Request, res: Response) => {
@@ -32,5 +32,24 @@ export const cancelBooking = async (req: Request, res: Response) => {
         res.status(200).json(cancelledBooking);
     } catch (error: any) {
         res.status(400).json({ message: error.message });
+    }
+};
+
+
+
+
+
+// Controller for fetching bookings
+export const getBookings = async (req: Request, res: Response) => {
+    try {
+        const filters = req.query;
+        const bookings = await getBookingsService(filters);
+        res.status(200).json(bookings);
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ message: 'An error occurred while fetching bookings.', error: error.message });
+        } else {
+            res.status(500).json({ message: 'An unknown error occurred' });
+        }
     }
 };

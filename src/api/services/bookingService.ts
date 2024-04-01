@@ -59,5 +59,24 @@ const cancelBooking = async (bookingId: string): Promise<IBooking> => {
   return cancelledBooking;
 };
 
+const getBookings = async (filters: any) => {
+  const query: any = {};
 
-export { createBooking, modifyBooking, cancelBooking };
+  if (filters.userEmail) {
+    query.userEmail = filters.userEmail;
+  }
+
+  // Date range filtering
+  if (filters.startDate && filters.endDate) {
+    query.startTime = {
+      $gte: new Date(filters.startDate),
+      $lte: new Date(filters.endDate)
+    };
+  }
+
+  const bookings = await Booking.find(query).exec();
+  return bookings;
+};
+
+
+export { getBookings, createBooking, modifyBooking, cancelBooking };
