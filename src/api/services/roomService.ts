@@ -8,13 +8,14 @@ export const checkRoomAvailability = async (roomId: string, startTime: Date, end
         throw new Error('Room not found');
     }
 
-    // Check for overlapping bookings
+    // Check for overlapping bookings, excluding canceled ones
     const overlappingBookings = await Booking.find({
         room: roomId,
+        status: { $ne: 'Cancelled' }, // Exclude canceled bookings
         $or: [
             { startTime: { $lt: endTime }, endTime: { $gt: startTime } }, // Overlaps with the requested time range
         ],
     });
 
-    return overlappingBookings.length === 0; // Room is available if there are no overlapping bookings
+    return overlappingBookings.length === 0; // Room is available if there are no overlapping non-canceled bookings
 };
