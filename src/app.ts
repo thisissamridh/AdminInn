@@ -8,6 +8,7 @@ import pingRouter from "./api/routes/ping";
 import { customErrorHandler } from "./api/middlewares/errorHandler";
 import errorTestRoutes from "./api/routes/Tests/errorTestRoutes";
 import connectToDB from "./utils/databaseConnect";
+import bookingRoutes from "./api/routes/bookingRoutes";
 require("dotenv").config();
 
 const app: Application = express();
@@ -38,6 +39,8 @@ app.use("/api/test-error", errorTestRoutes);
 // Connect to MongoDB
 connectToDB();
 
+
+app.use('/api/bookings', bookingRoutes);
 // Error Handling Middleware
 app.use(customErrorHandler);
 

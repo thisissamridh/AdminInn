@@ -2,7 +2,7 @@ import RoomType from '../models/RoomType';
 import { Booking, IBooking } from '../models/Booking';
 import { checkRoomAvailability } from './roomService'; // Import the availability check function
 import calculateBookingPrice from '../../utils/PriceCal';
-const createBooking = async (roomId: string, userId: string, startTime: Date, endTime: Date): Promise<IBooking> => {
+const createBooking = async (roomId: string, userEmail: string, startTime: Date, endTime: Date): Promise<IBooking> => {
   // Check room availability
   const isAvailable = await checkRoomAvailability(roomId, startTime, endTime);
   if (!isAvailable) throw new Error('Room is not available for the selected time range');
@@ -13,7 +13,7 @@ const createBooking = async (roomId: string, userId: string, startTime: Date, en
   // Create and save the booking
   const booking = new Booking({
     room: roomId,
-    user: userId,
+    user: userEmail,
     startTime,
     endTime,
     price
@@ -60,4 +60,4 @@ const cancelBooking = async (bookingId: string): Promise<IBooking> => {
 };
 
 
-
+export { createBooking, modifyBooking, cancelBooking };
