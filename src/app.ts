@@ -7,7 +7,7 @@ import { json } from "body-parser";
 import pingRouter from "./api/routes/ping";
 import { customErrorHandler } from "./api/middlewares/errorHandler";
 import errorTestRoutes from "./api/routes/Tests/errorTestRoutes";
-import connectToDB from "./databaseConnect";
+import connectToDB from "./utils/databaseConnect";
 require("dotenv").config();
 
 const app: Application = express();
