@@ -5,6 +5,7 @@ import { createBooking as createBookingService, modifyBooking as modifyBookingSe
 export const createBooking = async (req: Request, res: Response) => {
     try {
         const { roomId, userEmail, startTime, endTime } = req.body;
+        console.log(req.body);
         const booking = await createBookingService(roomId, userEmail, new Date(startTime), new Date(endTime));
         res.status(201).json(booking);
     } catch (error: any) {
