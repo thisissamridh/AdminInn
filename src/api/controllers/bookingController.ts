@@ -1,17 +1,22 @@
 import { Request, Response } from 'express';
 import { createBooking as createBookingService, modifyBooking as modifyBookingService, cancelBooking as cancelBookingService, getBookings as getBookingsService } from '../services/bookingService';
+import { checkRoomAvailability as checkRoomAvailabilityService } from '../services/roomService';
+import calculateBookingPrice from '../../utils/PriceCal';
+import Room from '../models/Room';
 
 // Controller for creating a booking
 export const createBooking = async (req: Request, res: Response) => {
     try {
         const { roomId, userEmail, startTime, endTime } = req.body;
-        console.log(req.body);
+
         const booking = await createBookingService(roomId, userEmail, new Date(startTime), new Date(endTime));
         res.status(201).json(booking);
     } catch (error: any) {
         res.status(400).json({ message: error.message });
     }
 };
+
+
 
 // Controller for modifying a booking
 export const modifyBooking = async (req: Request, res: Response) => {
@@ -52,5 +57,48 @@ export const getBookings = async (req: Request, res: Response) => {
         } else {
             res.status(500).json({ message: 'An unknown error occurred' });
         }
+    }
+};
+
+
+
+
+export const checkRoomAvailability = async (req: Request, res: Response) => {
+    try {
+        const roomId = req.query.roomId as string;
+        const startTime = req.query.startTime as string;
+        const endTime = req.query.endTime as string;
+
+        const isAvailable = await checkRoomAvailabilityService(roomId, new Date(startTime), new Date(endTime));
+        res.json({ available: isAvailable });
+    } catch (error) {
+        console.error('Error checking room availability:', error);
+        res.status(500).json({ error: 'An error occurred while checking room availability' });
+    }
+};
+
+
+export const checkBookingPrice = async (req: Request, res: Response) => {
+    try {
+        const roomId = req.query.roomId as string;
+        const startTime = req.query.startTime as string;
+        const endTime = req.query.endTime as string;
+        const price = await calculateBookingPrice(roomId, new Date(startTime), new Date(endTime));
+        res.json({ price });
+    } catch (error) {
+        console.error('Error retrieving room price:', error);
+        res.status(500).json({ error: 'An error occurred while retrieving room price' });
+    }
+
+};
+
+
+export const getAllRooms = async (req: Request, res: Response) => {
+    try {
+        const rooms = await Room.find();
+        res.json(rooms);
+    } catch (error) {
+        console.error('Error retrieving rooms:', error);
+        res.status(500).json({ error: 'An error occurred while retrieving rooms' });
     }
 };

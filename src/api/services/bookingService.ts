@@ -120,8 +120,16 @@ const getBookings = async (filters: any) => {
       $lte: new Date(filters.endDate)
     };
   }
+  let bookings;
+  if (query.status === 'Cancelled') {
+    // If status is "Cancelled", include refundAmount and _id fields
+    bookings = await Booking.find(query).select('room userEmail startTime endTime price status refundAmount').exec();
+  } else {
+    // Otherwise, exclude refundAmount field
+    bookings = await Booking.find(query).select('-refundAmount').exec();
+  }
 
-  const bookings = await Booking.find(query).exec();
+  bookings = await Booking.find(query).exec();
   return bookings;
 };
 

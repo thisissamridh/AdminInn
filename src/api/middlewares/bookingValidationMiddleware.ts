@@ -16,5 +16,11 @@ export const validateBooking = (req: Request, res: Response, next: NextFunction)
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
+
+
+    const { startTime, endTime } = req.body;
+    if (startTime >= endTime) {
+        return res.status(422).json({ errors: [{ msg: 'End time must be greater than start time' }] });
+    }
     next();
 };
