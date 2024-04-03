@@ -57,47 +57,48 @@ function BookingTable() {
     };
 
     return (
-        <div className="w-full lg:col-span-9">
-            <div className="overflow-auto">
-                <Table className="min-w-full" hoverable>
-                    <Table.Head>
-                        <Table.HeadCell>Room No</Table.HeadCell>
-                        <Table.HeadCell>Customer Email</Table.HeadCell>
-                        <Table.HeadCell>Date From</Table.HeadCell>
-                        <Table.HeadCell>Date To</Table.HeadCell>
-                        <Table.HeadCell>Amount</Table.HeadCell>
-                        <Table.HeadCell>Refund</Table.HeadCell>
-                        <Table.HeadCell>Status</Table.HeadCell>
-                        <Table.HeadCell>Actions</Table.HeadCell>
-                    </Table.Head>
-                    <Table.Body className="divide-y">
-                        {mockBookings.map((booking) => (
-                            <Table.Row key={booking.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                    {booking.roomNumber}
-                                </Table.Cell>
-                                <Table.Cell>{booking.customerEmail}</Table.Cell>
-                                <Table.Cell>{booking.dateFrom}</Table.Cell>
-                                <Table.Cell>{booking.dateTo}</Table.Cell>
-                                <Table.Cell>{`$${booking.amount}`}</Table.Cell>
-                                <Table.Cell>{`$${booking.refund}`}</Table.Cell>
-                                <Table.Cell>{booking.status}</Table.Cell>
-                                <Table.Cell>
-                                    <div className="flex items-center gap-2">
-                                        <Button size="xs" onClick={() => handleEdit(booking.id)}>
-                                            <HiPencilAlt className="h-4 w-4" />
-                                        </Button>
-                                        <Button size="xs" color="failure" onClick={() => handleCancel(booking.id)}>
-                                            <HiX className="h-4 w-4" />
-                                        </Button>
-                                    </div>
-                                </Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
-                </Table>
-            </div>
+
+        <div className="overflow-x-auto w-full">
+            <h2 className="text-2xl font-semibold mb-4">BOOKINGS</h2>
+            <Table className="min-w-full" hoverable>
+                <Table.Head>
+                    <Table.HeadCell>Room No</Table.HeadCell>
+                    <Table.HeadCell>Customer Email</Table.HeadCell>
+                    <Table.HeadCell>Date From</Table.HeadCell>
+                    <Table.HeadCell>Date To</Table.HeadCell>
+                    <Table.HeadCell>Amount</Table.HeadCell>
+                    <Table.HeadCell>Refund</Table.HeadCell>
+                    <Table.HeadCell>Status</Table.HeadCell>
+                    <Table.HeadCell>Actions</Table.HeadCell>
+                </Table.Head>
+                <Table.Body className="divide-y">
+                    {mockBookings.map((booking) => (
+                        <Table.Row key={booking.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                {booking.roomNumber}
+                            </Table.Cell>
+                            <Table.Cell>{booking.customerEmail}</Table.Cell>
+                            <Table.Cell>{booking.dateFrom}</Table.Cell>
+                            <Table.Cell>{booking.dateTo}</Table.Cell>
+                            <Table.Cell>{`$${booking.amount}`}</Table.Cell>
+                            <Table.Cell>{`$${booking.refund}`}</Table.Cell>
+                            <Table.Cell>{booking.status}</Table.Cell>
+                            <Table.Cell>
+                                <div className="flex items-center gap-2">
+                                    <Button size="xs" onClick={() => handleEdit(booking.id)}>
+                                        <HiPencilAlt className="h-4 w-4" />
+                                    </Button>
+                                    <Button size="xs" color="failure" onClick={() => handleCancel(booking.id)}>
+                                        <HiX className="h-4 w-4" />
+                                    </Button>
+                                </div>
+                            </Table.Cell>
+                        </Table.Row>
+                    ))}
+                </Table.Body>
+            </Table>
         </div>
+
     );
 }
 

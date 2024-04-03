@@ -28,6 +28,7 @@ const RoomList: React.FC = () => {
 
     return (
         <div className="container mx-auto p-4">
+            <h2 className="text-2xl font-semibold mb-4">ROOMS</h2>
             <div className="flex gap-4 mb-4">
                 <div className="flex items-center max-w-xs">
                     <TextInput
