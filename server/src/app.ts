@@ -9,7 +9,7 @@ import { customErrorHandler } from "./api/middlewares/errorHandler";
 import errorTestRoutes from "./api/routes/Tests/errorTestRoutes";
 import connectToDB from "./utils/databaseConnect";
 import bookingRoutes from "./api/routes/bookingRoutes";
-import { insertdata } from "./migrations/insertData";
+
 require("dotenv").config();
 
 const app: Application = express();

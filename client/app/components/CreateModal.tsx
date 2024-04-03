@@ -17,7 +17,6 @@ interface BookingModalProps {
 
 function BookingModal({ booking, onSave }: BookingModalProps) {
     const [openModal, setOpenModal] = useState(false);
-    // If a booking is passed in, we use that as our initial state, otherwise we use default values
     const [formData, setFormData] = useState<Booking>({
         email: booking?.email || '',
         roomId: booking?.roomId || '',
@@ -35,12 +34,12 @@ function BookingModal({ booking, onSave }: BookingModalProps) {
             <Button onClick={() => setOpenModal(true)}>
                 {booking ? 'Modify Booking' : 'Book Room'}
             </Button>
-            <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+            <Modal show={openModal} size="md" onClose={() => setOpenModal(false)}>
                 <Modal.Header>
                     {booking ? 'Modify Booking' : 'New Booking'}
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="space-y-6 px-6">
+                    <div className="flex flex-col gap-4">
                         <div>
                             <Label htmlFor="email" value="Customer Email" />
                             <TextInput
@@ -64,22 +63,22 @@ function BookingModal({ booking, onSave }: BookingModalProps) {
                             />
                         </div>
                         <div>
-                            <Label htmlFor="startDate" value="Start Date" />
+                            <Label htmlFor="startDate" className="pr-2" value="Start Date" />
                             <DatePicker
                                 id="startDate"
                                 selected={formData.startDate}
                                 onChange={(date: Date) => setFormData({ ...formData, startDate: date })}
-                                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                className="form-control block w-full px-3 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 required
                             />
                         </div>
                         <div>
-                            <Label htmlFor="endDate" value="End Date" />
+                            <Label htmlFor="endDate" className="pr-3" value="End Date" />
                             <DatePicker
                                 id="endDate"
                                 selected={formData.endDate}
                                 onChange={(date: Date) => setFormData({ ...formData, endDate: date })}
-                                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                className="form-control block w-full px-3 py-2 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                 required
                             />
                         </div>

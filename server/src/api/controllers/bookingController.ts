@@ -3,7 +3,7 @@ import { createBooking as createBookingService, modifyBooking as modifyBookingSe
 import { checkRoomAvailability as checkRoomAvailabilityService } from '../services/roomService';
 import calculateBookingPrice from '../../utils/PriceCal';
 import Room from '../models/Room';
-
+import RoomType from '../models/RoomType';
 // Controller for creating a booking
 export const createBooking = async (req: Request, res: Response) => {
     try {
@@ -16,6 +16,25 @@ export const createBooking = async (req: Request, res: Response) => {
     }
 };
 
+
+// Controller for getting room type by ObjectId
+export const getRoomType = async (req: Request, res: Response) => {
+    try {
+        console.log(req.params);
+        const { roomTypeId } = req.params; // Access roomTypeId from URL path
+
+        // Find the room type by ObjectId
+        const roomType = await RoomType.findById(roomTypeId);
+
+        if (!roomType) {
+            return res.status(404).json({ message: 'Room type not found' });
+        }
+
+        res.status(200).json(roomType);
+    } catch (error: any) {
+        res.status(500).json({ message: 'An error occurred while fetching room type', error: error.message });
+    }
+};
 
 
 // Controller for modifying a booking

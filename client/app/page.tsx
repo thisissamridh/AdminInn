@@ -9,25 +9,31 @@ import Analytics from "./components/Analytics";
 
 export default function Home() {
     return (
-        <div className="min-h-screen bg-gray-100">
-            {/* Analytics component at the top */}
-            <div className="mb-4">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-5">
+
+            <div className="container mx-auto mb-5">
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white text-center my-5">
+                    HotelSuite
+                </h1>
+            </div>
+            {/* Analytics component */}
+            <div className="container mx-auto mb-5">
                 <Analytics />
             </div>
 
-            {/* Room list component in the middle */}
-            <div className="mb-4">
+            {/* Room list section with heading */}
+            <div className="container mx-auto mb-5">
                 <RoomList />
             </div>
 
-            {/* Booking table (sidebar) at the bottom */}
-            <div className="mb-4">
+
+            <div className="container mx-auto mb-5">
                 <BookingSidebar />
             </div>
 
-            {/* Modals would be conditionally rendered based on state */}
+
             {/* <BookingModal onSave={() => { }} />
-                <DeleteBookingModal bookingId="123" onDelete={() => { }} /> */}
+            <DeleteBookingModal bookingId="123" onDelete={() => { }} /> */}
         </div>
     );
 };

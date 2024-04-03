@@ -1,6 +1,6 @@
 import express from "express";
 
-import { createBooking, modifyBooking, cancelBooking, getBookings } from '../controllers/bookingController';
+import { createBooking, modifyBooking, cancelBooking, getBookings, getRoomType } from '../controllers/bookingController';
 import { bookingValidationRules, validateBooking } from '../middlewares/bookingValidationMiddleware';
 import { checkBookingPrice, checkRoomAvailability, getAllRooms } from "../controllers/bookingController";
 
@@ -9,6 +9,7 @@ const router = express.Router();
 
 
 router.get('/rooms', getAllRooms);
+router.get('/roomsType/:roomTypeId', getRoomType);
 
 router.get('/availability', checkRoomAvailability);
 
